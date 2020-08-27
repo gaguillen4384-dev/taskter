@@ -4,7 +4,7 @@
     {
         public string TranscribeIntoStory()
         {
-            throw new System.NotImplementedException();
+            return string.Empty;
         }
     }
 }
