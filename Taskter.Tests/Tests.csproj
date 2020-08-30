@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Services\Taskter.Services.csproj" />
+	  <ProjectReference Include="..\Taskter.Services\Services.csproj" />
   </ItemGroup>
 
 </Project>
