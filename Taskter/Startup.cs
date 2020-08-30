@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Taskter.Services;
 
 namespace Taskter
 {
@@ -7,7 +8,9 @@ namespace Taskter
         public static IServiceCollection ConfigureServices()
         {
             IServiceCollection services = new ServiceCollection();
-            services.AddTransient<IScriber, Scriber>();
+            services.AddTransient<IScriberService, ScriberService>();
+            services.AddTransient<IStoryValidator, StoryValidator>();
+            services.AddTransient<IStringBuilderService, StringBuilderService>();
             // IMPORTANT! Register our application entry point
             services.AddTransient<ConsoleApplication>();
             return services;

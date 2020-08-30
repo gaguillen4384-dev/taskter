@@ -1,9 +1,11 @@
-﻿namespace Taskter
+﻿using Taskter.Services;
+
+namespace Taskter
 {
     public class ConsoleApplication
     {
-        private readonly IScriber _scriber;
-        public ConsoleApplication(IScriber scriber)
+        private IScriberService _scriber;
+        public ConsoleApplication(IScriberService scriber)
         {
             _scriber = scriber;
         }
@@ -24,8 +26,8 @@
             //}
             //else
             //    Console.WriteLine("path not found");
-            // here a json must be passed in by param
-            var result = _scriber.TranscribeIntoStory();
+            //// here a json must be passed in by param
+            //var result = _scriber.TranscribeIntoStory();
         }
     }
 }
