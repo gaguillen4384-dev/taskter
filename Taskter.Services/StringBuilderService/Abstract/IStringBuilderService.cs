@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
+using Taskter.Domain;
 
 namespace Taskter.Services
 {
@@ -21,6 +23,6 @@ namespace Taskter.Services
         /// <summary>
         /// Transform each message of the story into a formatted string.
         /// </summary>
-        void FormatStoryMessages();
+        string FormatStoryMessages(StringBuilder formattedString, IList<MessageLine> list);
     }
 }

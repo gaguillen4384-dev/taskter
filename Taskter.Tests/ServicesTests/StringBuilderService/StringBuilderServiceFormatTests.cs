@@ -3,6 +3,7 @@ using Moq;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Taskter.Domain;
 using Taskter.Services;
@@ -16,16 +17,14 @@ namespace Taskter.Tests.ServicesTests
         private ServiceProvider _serviceProvider;
         private IStringBuilderService _stringBuilderService;
         private StringBuilder _stringBuilder;
-        private Story _storyToTestOneLevel;
+        private Story _storyToTestLevel;
 
         public StringBuilderServiceFormatTests(StringBuilderServiceFixture fixture)
         {
             _serviceProvider = fixture.ServiceProvider;
             _stringBuilderService = _serviceProvider.GetService<IStringBuilderService>();
 
-
-            // TODO: put this under setup so it can be reuse
-            _storyToTestOneLevel = new Story
+            _storyToTestLevel = new Story
             {
                 Name = "StoryName",
                 ProjectAcronym = "ProjectName_ID",
@@ -34,8 +33,14 @@ namespace Taskter.Tests.ServicesTests
                     new MessageLine
                     {
                         Line = "MessageLine",
-                        Level = 0
-                    }
+                        Level = 1
+                    },
+                    new MessageLine
+                    {
+                        Line = "MessageLine1",
+                        Level = 2
+                    },
+
                 }
             };
 
@@ -45,16 +50,26 @@ namespace Taskter.Tests.ServicesTests
         [Fact]
         public void FormatPartOfStory_ReturnFormulatedString_ShouldPass_Test() 
         {
-            _stringBuilderService.FormatPartOfStory(_stringBuilder, "Name", _storyToTestOneLevel.Name);
+            _stringBuilderService.FormatPartOfStory(_stringBuilder, "Name", _storyToTestLevel.Name);
 
             string testCompare = "\"Name\" : \"StoryName\"\r\n";
-            Assert.Equal(_stringBuilder.ToString(),testCompare);
+            Assert.Equal(_stringBuilder.ToString(), testCompare);
         }
 
         [Fact]
-        public void FormatStoryMessage_RetrunFormulatedString_ShouldPass_Test() 
+        public void FormatStoryMessage_ReturnFormulatedString_ShouldPass_Test() 
         {
-            // TODO: get to have this tested
+            var result = _stringBuilderService.FormatStoryMessages(_stringBuilder, _storyToTestLevel.StoryMessage.ToList<MessageLine>());
+
+            string testCompare = "+MessageLine\r\n++MessageLine1\r\n";
+            Assert.Equal(result, testCompare);
+        }
+
+        [Fact]
+        public void FormatStoryNumber_ReturnProperStoryNumber_ShouldPass_Test()
+        {
+            // TODO: REPO logic
+            Assert.Equal(result, testCompare);
         }
     }
 }

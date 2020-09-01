@@ -15,6 +15,15 @@ namespace Taskter.Services
 
             if (story.StoryMessage == null)
                 throw new ArgumentException("The Story is missing a 'ProjectAcronym'");
+
+            foreach (var message in story.StoryMessage) 
+            {
+                if (!message.Level.HasValue)
+                    message.Level = 1;
+
+                if (message.Level.Value <= 0)
+                    message.Level = 1;
+            }
         }
     }
 }

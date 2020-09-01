@@ -52,15 +52,11 @@ namespace Taskter.Services
             // Here goes the message logic
             var messagelines = storyMessage.StoryMessage.ToList<MessageLine>();
 
-            if (messagelines ==null || !messagelines.Any())
+            if (messagelines == null || !messagelines.Any())
                 throw new ArgumentException("A story needs a message with atleast 1 messageline");
 
-            foreach (var message in messagelines) 
-            {
-                
-            }
-
-            return formattedString.ToString();
+            return _stringBuilderService.FormatStoryMessages(formattedString, messagelines);
+           
         }
 
     }
