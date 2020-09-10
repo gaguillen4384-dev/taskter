@@ -3,8 +3,14 @@ using Taskter.Domain;
 
 namespace Taskter.Services
 {
+    /// <summary>
+    /// Concrete implementation of <see cref="IStoryValidator">
+    /// </summary>
     public class StoryValidator : IStoryValidator
     {
+        /// <summary>
+        /// Concrete implementation of <see cref="IStoryValidator.ValidateStoryProperties(Story)">
+        /// </summary>
         public void ValidateStoryProperties(Story story)
         {
             if (string.IsNullOrWhiteSpace(story.Name))

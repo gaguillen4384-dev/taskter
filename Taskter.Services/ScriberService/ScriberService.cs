@@ -11,8 +11,8 @@ namespace Taskter.Services
     /// </summary>
     public class ScriberService : IScriberService
     {
-        private IStoryValidator _validator;
-        private IStringBuilderService _stringBuilderService;
+        private readonly IStoryValidator _validator;
+        private readonly IStringBuilderService _stringBuilderService;
 
         public ScriberService(IStoryValidator validator,
             IStringBuilderService stringBuilderService) 
