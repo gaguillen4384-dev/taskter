@@ -7,7 +7,7 @@ namespace Taskter
     public class Program
     {
         // TODO: Get DI out of program into startup
-        private static IServiceProvider _serviceProvider;
+        private readonly static IServiceProvider _serviceProvider;
         public static void Main(string[] args)
         {
             ConfigureServices();

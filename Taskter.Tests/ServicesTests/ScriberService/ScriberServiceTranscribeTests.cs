@@ -12,9 +12,9 @@ namespace Taskter.Tests.ServicesTests
     // TODO: need to introduce a mock of json or json resource
     public class ScriberServiceTranscribeTests : IClassFixture<ScriberServiceFixture>
     {
-        private ServiceProvider _serviceProvider;
+        private readonly ServiceProvider _serviceProvider;
         private readonly IScriberService _scriberService;
-        Story _storyToTestOneLevel;
+        readonly Story _storyToTestOneLevel;
 
         public ScriberServiceTranscribeTests(ScriberServiceFixture fixture)
         {
@@ -47,6 +47,7 @@ namespace Taskter.Tests.ServicesTests
         [Fact]
         public void TranscribeIntoStoryFromJson_ReturnFormulatedString_ShouldPass_Test()
         {
+            //TODO: Finish this test!
             string testInput = JsonConvert.SerializeObject(_storyToTestOneLevel, Formatting.Indented);
                 
             var result = _scriberService.TranscribeIntoStory(testInput);

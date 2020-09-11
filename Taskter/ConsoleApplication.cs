@@ -4,7 +4,7 @@ namespace Taskter
 {
     public class ConsoleApplication
     {
-        private IScriberService _scriber;
+        private readonly IScriberService _scriber;
         public ConsoleApplication(IScriberService scriber)
         {
             _scriber = scriber;
