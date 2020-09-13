@@ -24,15 +24,16 @@ namespace Taskter.Repository
                     WHERE Project = $ProjectAcronym
                      ";
                 command.Parameters.AddWithValue("$ProjectAcronym", ProjectAcronym);
-
+                command.ExecuteNonQuery();
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        return reader.GetInt64(0).ToString();
+                        return reader["LatestStoryNumber"].ToString();
                     }
                 }
             }
+
             return string.Empty;
         }
 
@@ -56,6 +57,34 @@ namespace Taskter.Repository
                      ";
                 command.Parameters.AddWithValue("$StoryNumber", intStoryNumber++);
                 command.Parameters.AddWithValue("$ProjectAcronym", ProjectAcronym);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// Concrete implementation of <see cref="IProjectRepository.CreateProjectAcronym(string)"> 
+        /// </summary>
+        public void CreateProjectAcronym(string ProjectAcronym)
+        {
+            using (var connection = new SqliteConnection("Data Source=ProjectsNumber.db"))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    @"
+                    INSERT INTO [ProjectsNumbers]
+                    ([Project]
+                    ,[LatestStoryNumber])
+                    VALUES
+                    (
+                    $ProjectAcronym,
+                     $StoryNumber);
+
+                     ";
+                command.Parameters.AddWithValue("$ProjectAcronym", ProjectAcronym);
+                command.Parameters.AddWithValue("$StoryNumber", 1);
+                command.ExecuteNonQuery();
             }
         }
     }

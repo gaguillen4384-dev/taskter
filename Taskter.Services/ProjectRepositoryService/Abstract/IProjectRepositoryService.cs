@@ -8,6 +8,17 @@
         /// <summary>
         /// Retrieves the latest story number for a project, and updates it aswell.
         /// </summary>
-        string InteractWithLatestStoryNumberForProject(string ProjectAcronym);
+        string UpdateLatestStoryNumberForProject(string ProjectAcronym);
+
+
+        /// <summary>
+        /// Retrieves the latest story number for a project. Creates a project acronym if not found.
+        /// </summary>
+        string GetLatestStoryNumberForProject(string ProjectAcronym);
+
+        /// <summary>
+        /// Creates project into the repo to start creating new stories with.
+        /// </summary>
+        string CreateProjectAcronym(string ProjectAcronym);
     }
 }

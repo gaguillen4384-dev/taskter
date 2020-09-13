@@ -13,41 +13,75 @@ namespace Taskter.Services
     {
         private readonly IStoryValidator _validator;
         private readonly IStringBuilderService _stringBuilderService;
+        private readonly IProjectRepositoryService _projectRepositoryService;
 
         public ScriberService(IStoryValidator validator,
-            IStringBuilderService stringBuilderService) 
+            IStringBuilderService stringBuilderService,
+            IProjectRepositoryService projectRepositoryService) 
         {
             _validator = validator;
             _stringBuilderService = stringBuilderService;
+            _projectRepositoryService = projectRepositoryService;
         }
 
-
         /// <summary>
-        /// Transcribes a given json and returns a string formatted properly into a story format.
+        /// Transcribes a given json and returns a string formatted properly into a story format. Advances story number foward.
         /// </summary>
-        public string TranscribeIntoStory(string storyMessage)
+        public string TranscribeIntoStory(string storyMessage, string storyNumber = null)
         {
             var jsonTranscription = JsonConvert.DeserializeObject<Story>(storyMessage);
 
             _validator.ValidateStoryProperties(jsonTranscription);
 
-            string result = Format(jsonTranscription); 
+            string result = Format(jsonTranscription, storyNumber);
 
             return result;
         }
 
         /// <summary>
-        /// 
+        /// concrete implementation of <see cref="IScriberService.TranscribeNewStoryForProject(string, string)">
         /// </summary>
-        private string Format(Story storyMessage) 
+        public string TranscribeNewStoryForProject(string ProjectAcronym, string StoryMessage)
+        {
+            var latestNumber = _projectRepositoryService.UpdateLatestStoryNumberForProject(ProjectAcronym);
+            var result = TranscribeIntoStory(StoryMessage, latestNumber);
+            return result;
+        }
+
+        /// <summary>
+        /// concrete implementation of <see cref="IScriberService.GetLatestStoryForProject(string)">
+        /// </summary>
+        public string GetLatestStoryForProject(string ProjectAcronym)
+        {
+            //TODO: We are going to need a blob storage set up for projects, not currently on (that requires more schema changes)
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// concrete implementation of <see cref="IScriberService.GetLatestStoryNumberForProject(string)">
+        /// </summary>
+        public string GetLatestStoryNumberForProject(string ProjectAcronym)
+        {
+            return _projectRepositoryService.GetLatestStoryNumberForProject(ProjectAcronym);
+        }
+
+        /// <summary>
+        /// Formats the story message into a string we can copy.
+        /// </summary>
+        private string Format(Story storyMessage, string storyNumber = null)
         {
             // here goes the first part of the formatted string
             StringBuilder formattedString = new StringBuilder();
 
             _stringBuilderService.FormatPartOfStory(formattedString, "Name", storyMessage.Name);
-            _stringBuilderService.FormatPartOfStory(formattedString, "ProjectAcronym", storyMessage.ProjectAcronym);
 
-            // Here goes the project # from some repo
+            if(string.IsNullOrWhiteSpace(storyNumber))
+            {
+                _stringBuilderService.FormatStoryNumber(formattedString, storyMessage.ProjectAcronym);
+            }
+            {
+                _stringBuilderService.FormatStoryNumber(formattedString, storyMessage.ProjectAcronym, storyNumber);
+            }
 
             // Here goes the message logic
             var messagelines = storyMessage.StoryMessage.ToList<MessageLine>();

@@ -18,7 +18,7 @@ namespace Taskter.Services
         /// <summary>
         /// Finds the current number for the given project acronym into a formatted string.
         /// </summary>
-        void FormatStoryNumber(StringBuilder formattedString, string projectAcronym);
+        void FormatStoryNumber(StringBuilder formattedString, string projectAcronym, string storyNumber = null);
 
         /// <summary>
         /// Transform each message of the story into a formatted string.

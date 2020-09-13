@@ -35,20 +35,26 @@ namespace Taskter.Services
 
             foreach (var message in messagelines)
             {
-                //TODO: this really belongs at the UI/interface layer. this introduces a 0 and 1 based debate when it should be just dumb
                 formattedString.AppendLine(new String('+', message.Level.Value) + $"{message.Line}");
             }
 
             return formattedString.ToString();
         }
 
-        // TODO: REPO might be sqllite or a plain text file JSON.
         /// <summary>
         /// Concrete implementation of <see cref="IStringBuilderService.FormatStoryNumber(StringBuilder, string)">
         /// </summary>
-        public void FormatStoryNumber(StringBuilder formattedString, string projectAcronym)
+        public void FormatStoryNumber(StringBuilder formattedString, string projectAcronym, string storyNumber = null)
         {
-            //TODO: Integrate against the repo service object
+            if(storyNumber != null) 
+            {
+                formattedString.AppendLine($"\"{projectAcronym}-{storyNumber}\"");
+            }
+            else
+            {
+                var latestStoryNumber = _projectRepositoryService.GetLatestStoryNumberForProject(projectAcronym);
+                formattedString.AppendLine($"\"{projectAcronym}-{latestStoryNumber}\"");
+            }
         }
     }
 }

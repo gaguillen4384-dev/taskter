@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +9,6 @@ using Xunit;
 
 namespace Taskter.Tests.ServicesTests
 {
-    // TODO: need to introduce a mock of json or json resource
     public class StringBuilderServiceFormatTests : IClassFixture<StringBuilderServiceFixture>
     {
         private readonly ServiceProvider _serviceProvider;
@@ -68,8 +65,10 @@ namespace Taskter.Tests.ServicesTests
         [Fact]
         public void FormatStoryNumber_ReturnProperStoryNumber_ShouldPass_Test()
         {
-            // TODO: REPO logic
-            //Assert.Equal(result, testCompare);
+            var test = "TST";
+            _stringBuilderService.FormatStoryNumber(_stringBuilder, test);
+            string testCompare = "TST-1";
+            Assert.Equal(_stringBuilder.ToString(), testCompare);
         }
     }
 }

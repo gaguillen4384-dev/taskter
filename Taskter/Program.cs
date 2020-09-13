@@ -11,8 +11,8 @@ namespace Taskter
         public static void Main(string[] args)
         {
             ConfigureServices();
-            IServiceScope scope = _serviceProvider.CreateScope();
-            scope.ServiceProvider.GetRequiredService<ConsoleApplication>().Run(args[0]);
+            //IServiceScope scope = _serviceProvider.CreateScope();
+            //scope.ServiceProvider.GetRequiredService<ConsoleApplication>().Run(args[0]);
             DisposeServices();
         }
 

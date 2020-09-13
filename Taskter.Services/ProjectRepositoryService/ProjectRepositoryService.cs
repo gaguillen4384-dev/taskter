@@ -14,11 +14,57 @@ namespace Taskter.Services
         }
 
         /// <summary>
-        /// Concrete Implementation of <see cref="IProjectRepositoryService.InteractWithLatestStoryNumberForProject(string)">
+        /// Concrete Implementation of <see cref="IProjectRepositoryService.GetLatestStoryNumberForProject(string)">
         /// </summary>
-        public string InteractWithLatestStoryNumberForProject(string ProjectAcronym)
+        public string GetLatestStoryNumberForProject(string ProjectAcronym)
         {
-            throw new System.NotImplementedException();
+            var result = _projectRepository.GetLatestStoryNumberForProject(ProjectAcronym);
+
+            if (string.IsNullOrWhiteSpace(result)) 
+            {
+                var projectAcronym = CreateProjectAcronym(ProjectAcronym);
+
+                if (ProjectAcronym.Equals(projectAcronym))
+                    return "1";
+            }
+
+            return result;
         }
+
+        /// <summary>
+        /// Concrete Implementation of <see cref="IProjectRepositoryService.CreateProjectAcronym(string)">
+        /// </summary>
+        public string CreateProjectAcronym(string ProjectAcronym)
+        {
+            _projectRepository.CreateProjectAcronym(ProjectAcronym);
+
+            var result = _projectRepository.GetLatestStoryNumberForProject(ProjectAcronym);
+            if (result != null) 
+            {
+                return ProjectAcronym;
+            }
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Concrete Implementation of <see cref="IProjectRepositoryService.UpdateLatestStoryNumberForProject(string)">
+        /// </summary>
+        public string UpdateLatestStoryNumberForProject(string ProjectAcronym)
+        {
+            // makes sure that the project exists before updating.
+            var _ = GetLatestStoryNumberForProject(ProjectAcronym);
+            _projectRepository.UpdateLatestStoryNumberForProject(ProjectAcronym);
+
+            var result = _projectRepository.GetLatestStoryNumberForProject(ProjectAcronym);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            return string.Empty;
+        }
+
     }
 }
