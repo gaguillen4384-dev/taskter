@@ -6,6 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="JSON\Json_Example_For_Taskter.json" />
+    <None Remove="ProjectsNumber.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="JSON\Json_Example_For_Taskter.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ProjectsNumber.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.7" />

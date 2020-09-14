@@ -55,7 +55,7 @@ namespace Taskter.Repository
                     SET LatestStoryNumber = $StoryNumber
                     WHERE Project = $ProjectAcronym
                      ";
-                command.Parameters.AddWithValue("$StoryNumber", intStoryNumber++);
+                command.Parameters.AddWithValue("$StoryNumber", ++intStoryNumber);
                 command.Parameters.AddWithValue("$ProjectAcronym", ProjectAcronym);
                 command.ExecuteNonQuery();
             }

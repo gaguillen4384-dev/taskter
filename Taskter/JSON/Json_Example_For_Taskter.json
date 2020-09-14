@@ -1,0 +1,20 @@
+{
+  "Story": {
+    "Name": "Taskter to accept different console commands.",
+    "Project": "TSKT",
+    "StoryMessage": [
+      {
+        "MessageLine": {
+          "line": "Taskter needs to be able to accept different console commands.",
+          "level": 1
+        }
+      },
+      {
+        "MessageLine": {
+          "line": "The commands to be for future planning",
+          "level": 2
+        }
+      }
+    ]
+  }
+}

@@ -1,4 +1,5 @@
-﻿using Taskter.Domain;
+﻿using Newtonsoft.Json.Linq;
+using Taskter.Domain;
 
 namespace Taskter.Services
 {
@@ -11,5 +12,10 @@ namespace Taskter.Services
         /// Validates the story properties.
         /// </summary>
         void ValidateStoryProperties(Story story);
+
+        /// <summary>
+        /// Validates the json passed in for desired properties.
+        /// </summary>
+        Story ValidateJsonIntoStory(JObject jObjectStory);
     }
 }

@@ -67,7 +67,7 @@ namespace Taskter.Tests.ServicesTests
         {
             var test = "TST";
             _stringBuilderService.FormatStoryNumber(_stringBuilder, test);
-            string testCompare = "TST-1";
+            string testCompare = "\"TST-1\"\r\n";
             Assert.Equal(_stringBuilder.ToString(), testCompare);
         }
     }

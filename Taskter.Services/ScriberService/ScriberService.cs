@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Taskter.Domain;
@@ -25,26 +27,26 @@ namespace Taskter.Services
         }
 
         /// <summary>
-        /// Transcribes a given json and returns a string formatted properly into a story format. Advances story number foward.
+        /// concrete implementation of <see cref="IScriberService.TranscribeStory(Story, string)">
         /// </summary>
-        public string TranscribeIntoStory(string storyMessage, string storyNumber = null)
+        public string TranscribeStory(Story storyMessage, string storyNumber = null)
         {
-            var jsonTranscription = JsonConvert.DeserializeObject<Story>(storyMessage);
+            _validator.ValidateStoryProperties(storyMessage);
 
-            _validator.ValidateStoryProperties(jsonTranscription);
-
-            string result = Format(jsonTranscription, storyNumber);
+            string result = Format(storyMessage, storyNumber);
 
             return result;
         }
 
         /// <summary>
-        /// concrete implementation of <see cref="IScriberService.TranscribeNewStoryForProject(string, string)">
+        /// concrete implementation of <see cref="IScriberService.TranscribeNewStoryForProject(string)">
         /// </summary>
-        public string TranscribeNewStoryForProject(string ProjectAcronym, string StoryMessage)
+        public string TranscribeNewStoryForProject(string StoryMessage)
         {
-            var latestNumber = _projectRepositoryService.UpdateLatestStoryNumberForProject(ProjectAcronym);
-            var result = TranscribeIntoStory(StoryMessage, latestNumber);
+            var jsonStory = JObject.Parse(StoryMessage);
+            var story = _validator.ValidateJsonIntoStory(jsonStory);
+            var latestNumber = _projectRepositoryService.UpdateLatestStoryNumberForProject(story.ProjectAcronym);
+            var result = TranscribeStory(story, latestNumber);
             return result;
         }
 
@@ -92,6 +94,5 @@ namespace Taskter.Services
             return _stringBuilderService.FormatStoryMessages(formattedString, messagelines);
            
         }
-
     }
 }

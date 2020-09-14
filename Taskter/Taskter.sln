@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "..\Taskter.Tests\T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "..\Domain\Domain.csproj", "{A6EBAABA-649B-491C-AB88-25EE4EC6161B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "..\Repository\Repository.csproj", "{9E3B2970-C4D0-4046-B118-6B410A1D0438}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "..\Repository\Repository.csproj", "{9E3B2970-C4D0-4046-B118-6B410A1D0438}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

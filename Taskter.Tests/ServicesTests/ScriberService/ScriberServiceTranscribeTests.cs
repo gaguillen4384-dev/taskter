@@ -50,17 +50,14 @@ namespace Taskter.Tests.ServicesTests
         [Fact]
         public void TranscribeIntoStoryFromJson_ReturnString_ShouldPass_Test()
         {
-            string testInput = JsonConvert.SerializeObject(_storyToTestOneLevel, Formatting.Indented);
-            var result = _scriberService.TranscribeIntoStory(testInput);
+            var result = _scriberService.TranscribeStory(_storyToTestOneLevel);
             Assert.IsType<string>(result);
         }
 
         [Fact]
         public void TranscribeIntoStoryFromJson_ReturnFormulatedString_ShouldPass_Test()
-        {
-            string testInput = JsonConvert.SerializeObject(_storyToTestOneLevel, Formatting.Indented);
-                
-            var result = _scriberService.TranscribeIntoStory(testInput);
+        {  
+            var result = _scriberService.TranscribeStory(_storyToTestOneLevel);
             string testCompare = $"\"Name\" : \"StoryName\"\r\n\"TST-1\"\r\n+MessageLine\r\n";
             Assert.Equal(result, testCompare);
         }
@@ -70,7 +67,7 @@ namespace Taskter.Tests.ServicesTests
         {
             string testInput = JsonConvert.SerializeObject(_newStoryToTestOneLevel, Formatting.Indented);
 
-            var result = _scriberService.TranscribeNewStoryForProject(_newStoryToTestOneLevel.ProjectAcronym, testInput);
+            var result = _scriberService.TranscribeNewStoryForProject(testInput);
 
             var latestNumber = _scriberService.GetLatestStoryNumberForProject(_newStoryToTestOneLevel.ProjectAcronym);
 
