@@ -1,8 +1,8 @@
 # Taskter
-Tool to generate tracking stories 
+Tool to generate and track stories. This follow a conventional Clean Code architecture by Uncle Bob.
 
 
-This proj helped me understand:
-  -How to use sqlite and Xunit
-  -How to leverage integration tests and unit tests with an appsettings
-  
+This project showcases:
+  -The use of sqlite and Xunit
+  -The use of leveraging integration tests and unit tests with an appsettings
+ 
